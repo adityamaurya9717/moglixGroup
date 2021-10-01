@@ -1,5 +1,7 @@
 package com.org.moglix.dao;
 
+import java.util.List;
+
 import com.org.moglix.domain.User;
 
 public interface UserDao {
@@ -7,7 +9,7 @@ public interface UserDao {
 
 	public User getById(Long userId);
 
-	public User[] getList();
+	public List<User> getList();
 
 	public String deleteById(Long userId);
 }

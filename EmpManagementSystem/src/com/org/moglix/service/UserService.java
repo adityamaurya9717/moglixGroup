@@ -1,5 +1,7 @@
 package com.org.moglix.service;
 
+import java.util.List;
+
 import com.org.moglix.domain.User;
 
 public interface UserService {
@@ -7,7 +9,7 @@ public interface UserService {
 
 	public User getById(Long userId);
 
-	public User[] getList();
+	public List<User> getList();
 
 	public String deleteById(Long userId);
 }

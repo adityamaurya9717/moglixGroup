@@ -5,10 +5,19 @@ import java.util.List;
 import com.org.moglix.dao.OrderDao;
 import com.org.moglix.dao.impl.OrderDaoImpl;
 import com.org.moglix.domain.Orders;
+import com.org.moglix.service.OrderService;
 
 public class OrderServiceImpl implements com.org.moglix.service.OrderService {
-	OrderDao orderDao = new OrderDaoImpl();
-
+	OrderDao orderDao = OrderDaoImpl.getInstance();
+	private static OrderService orderService;
+	private OrderServiceImpl() {}
+public static OrderService getInstance() {
+	if(orderService==null) {
+		orderService=new OrderServiceImpl();
+		return orderService;
+	}else
+		return orderService;
+}
 	@Override
 	public String saveOrUpdate(Orders order) {
 		return orderDao.saveOrUpdate(order);
@@ -20,7 +29,7 @@ public class OrderServiceImpl implements com.org.moglix.service.OrderService {
 	}
 
 	@Override
-	public Orders[] getList() {
+	public List<Orders> getList() {
 		return orderDao.getList();
 	}
 

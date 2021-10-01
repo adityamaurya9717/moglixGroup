@@ -1,11 +1,29 @@
 package com.org.moglix.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.org.moglix.dao.CartDao;
 import com.org.moglix.domain.Cart;
 
 public class CartDaoImpl implements CartDao {
-	private static int counter = 0;
-	Cart carts[] = new Cart[19];
+//	private static int counter = 0;
+//	Cart carts[] = new Cart[19];
+
+	private static CartDao cartDao;
+
+	private CartDaoImpl() {
+	}
+
+	public static CartDao getInstance() {
+		if (cartDao == null) {
+			cartDao = new CartDaoImpl();
+			return cartDao;
+		} else
+			return cartDao;
+	}
+
+	public List<Cart> carts = new ArrayList<>();
 
 	@Override
 	public String saveOrUpdate(Cart cart) {
@@ -21,9 +39,10 @@ public class CartDaoImpl implements CartDao {
 			}
 			return "updated successfully with cartId :" + cart.getCartId() + "";
 		} else {
-			if (counter < carts.length) {
-				carts[counter] = cart;
-			}
+//			if (counter < carts.length) {
+//				carts[counter] = cart;
+//			}
+			carts.add(cart);
 		}
 		return "Inserted Successfully ";
 	}
@@ -39,22 +58,28 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public Cart[] getList() {
+	public List<Cart> getList() {
 		return carts;
 	}
 
 	@Override
 	public String deleteById(Long cartId) {
-		this.counter = 0;
-		for (Cart cart : carts) {
-			if (cart != null && cart.getCartId() == cartId) {
-				carts[counter] = null;
-				return "Deleted sucessfull deleted by id : " + cartId + "";
-			} else {
-				counter++;
-			}
-		}
-		return "Internal Server error OR catalogId may not exist";
+//		this.counter = 0;
+//		for (Cart cart : carts) {
+//			if (cart != null && cart.getCartId() == cartId) {
+//				carts[counter] = null;
+//				return "Deleted sucessfull deleted by id : " + cartId + "";
+//			} else {
+//				counter++;
+//			}
+//		}
+//		return "Internal Server error OR catalogId may not exist";
+		Cart cart = this.getById(cartId);
+		if (cart != null) {
+			this.carts.remove(cart);
+			return "Deleted successFully";
+		} else
+			return "Deletaion failed";
 
 	}
 

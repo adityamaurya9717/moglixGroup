@@ -3,10 +3,11 @@ package com.org.moglix.controller;
 import java.util.List;
 
 import com.org.moglix.domain.Orders;
+import com.org.moglix.service.OrderService;
 import com.org.moglix.service.impl.OrderServiceImpl;
 
 public class OrderController {
-	OrderServiceImpl orderService = new OrderServiceImpl();
+	OrderService orderService = OrderServiceImpl.getInstance();
 
 	public String saveOrUpdate(Orders order) {
 		return this.orderService.saveOrUpdate(order);
@@ -16,7 +17,7 @@ public class OrderController {
 		return this.orderService.getById(orderId);
 	}
 
-	public Orders[] list() {
+	public List<Orders> list() {
 		return this.orderService.getList();
 	}
 

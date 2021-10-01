@@ -8,7 +8,19 @@ import com.org.moglix.domain.Cart;
 import com.org.moglix.service.CartService;
 
 public class CartServiceImpl implements CartService {
-	CartDao cartDao = new CartDaoImpl();
+	CartDao cartDao = CartDaoImpl.getInstance();
+	private static CartService cartService;
+
+	private CartServiceImpl() {
+	}
+
+	public static CartService getInstance() {
+		if (cartService == null) {
+			cartService = new CartServiceImpl();
+			return cartService;
+		} else
+			return cartService;
+	}
 
 	@Override
 	public String saveOrUpdate(Cart cart) {
@@ -21,7 +33,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart[] getList() {
+	public List<Cart> getList() {
 		return this.cartDao.getList();
 	}
 

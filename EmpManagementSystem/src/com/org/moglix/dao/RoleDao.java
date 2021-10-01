@@ -1,5 +1,7 @@
 package com.org.moglix.dao;
 
+import java.util.List;
+
 import com.org.moglix.domain.Role;
 
 public interface RoleDao {
@@ -7,7 +9,7 @@ public interface RoleDao {
 
 	public Role getById(Long roleId);
 
-	public Role[] getList();
+	public List<Role> getList();
 
 	public String deleteById(Long roleId);
 }

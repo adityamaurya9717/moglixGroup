@@ -1,68 +1,75 @@
 package com.org.moglix.dao.impl;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import com.org.moglix.dao.CatalogDao;
 import com.org.moglix.domain.Catalog;
 
 public class CatalogDaoImpl implements CatalogDao {
-	private static int counter = 0;
-	Catalog catalogs[] = new Catalog[10];
-	@Override
-	public String saveOrUpdate(Catalog catalog) {
-	     
-	    	Catalog catalogExist= this.getById(catalog.getProductId());
-	    	if(catalogExist!=null) {
-	    		//update catalog with this id
-	    		for (Catalog cat : catalogs) {
-					if(cat !=null &&cat.getProductId() ==catalogExist.getProductId())
-					{
-						cat.setCategoryId(catalog.getCategoryId());
-						cat.setProductDescription(catalog.getProductDescription());
-						cat.setProductImage(catalog.getProductImage());
-						cat.setProductName(catalog.getProductName());
-					}
-				}
-	    		
-	    		return "Updated Successfully .. "+ catalog.getProductId() +"";
-	    	}
-	    	else {
-	    		//insert new catalog
-		    	if(counter<catalogs.length) {
-		    		catalogs[counter++]=catalog;
-		    	}	
-	    	}
-	    
-		return "Inserted Successfully ..!";
+
+	private static CatalogDao catalogDao;
+
+	private CatalogDaoImpl() {
 	}
+
+	public static CatalogDao getInstance() {
+		if (catalogDao == null) {
+			catalogDao = new CatalogDaoImpl();
+			return catalogDao;
+		} else {
+			return catalogDao;
+		}
+	}
+
+	List<Catalog> catalogList = new ArrayList();
 
 	@Override
 	public Catalog getById(Long catelogId) {
-		for (Catalog catalog : catalogs) {
-		if(catalog!=null && (catalog.getProductId()== catelogId)) {
-			return catalog;
+		
+		Optional<Catalog> cata = 
+				catalogList.stream().filter(it -> it.getProductId() == catelogId).findAny();
+		if (cata.isPresent()) {
+			return cata.get();
 		}
-		}
+
 		return null;
 	}
 
 	@Override
-	public Catalog[] getList() {
-		return catalogs;
+	public String deleteById(Long catelogId) {
+		Catalog catalog = this.getById(catelogId);
+		if (this.catalogList.contains(catalog)) {
+			this.catalogList.remove(catalog);
+			return "Deleted Successfull";
+		}
+		return "Not Deleted";
+	}
+
+//public String update(Long  catalogId,Catalog catalog){
+//	Catalog cata=this.getById(catalogId);
+//	int index =this.catalogList.indexOf(cata);
+//
+//	//int index =this.catalogList.indexOf(catalog);
+//	this.catalogList.set(index, catalog);
+//	return "Updated Successfully";
+//}
+	@Override
+	public String saveOrUpdate(Catalog catalog) {
+		if (this.getById(catalog.getProductId()) != null) {
+			int index = this.catalogList.indexOf(this.getById(catalog.getProductId()));
+			this.catalogList.set(index, catalog);
+			return "Updated SuccessFully";
+		} else
+			catalogList.add(catalog);
+		return "Persisted SuccessFully";
 	}
 
 	@Override
-	public String deleteById(Long catelogId) {
-       this.counter=0;
-       for (Catalog catalog : catalogs) {
-  		    if(catalog!=null &&catalog.getProductId()==catelogId) {
-  		    	this.catalogs[counter]=null;
-  		    	return "Deleted succcessfully : catalogId : " +catelogId+"";
-  		    }else {
-  		    	counter ++;
-  		    }
-	      }
-       return "Internal Server error OR catalogId may not exist";
+	public List<Catalog> getList() {
+		return catalogList;
 	}
 
 }

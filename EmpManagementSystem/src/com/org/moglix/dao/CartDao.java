@@ -1,5 +1,7 @@
 package com.org.moglix.dao;
 
+import java.util.List;
+
 import com.org.moglix.domain.Cart;
 
 public interface CartDao {
@@ -7,7 +9,7 @@ public interface CartDao {
 
 	public Cart getById(Long cartId);
 
-	public Cart[] getList();
+	public List<Cart> getList();
 
 	public String deleteById(Long cartId);
 }

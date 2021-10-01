@@ -7,26 +7,39 @@ import com.org.moglix.dao.impl.CatalogDaoImpl;
 import com.org.moglix.domain.Catalog;
 import com.org.moglix.service.CatalogService;
 
-public class CatalogServiceImpl implements CatalogService{
-CatalogDao catalogService=new CatalogDaoImpl();
+public class CatalogServiceImpl implements CatalogService {
+	CatalogDao catalogDao = CatalogDaoImpl.getInstance();
+	private static CatalogService catalogService;
+
+	private CatalogServiceImpl() {
+	}
+
+	public static CatalogService getInstance() {
+		if (catalogService == null) {
+			catalogService = new CatalogServiceImpl();
+			return catalogService;
+		} else {
+			return catalogService;
+		}
+	}
+
 	@Override
 	public String saveOrUpdate(Catalog catelog) {
-		return catalogService.saveOrUpdate(catelog);
+		return catalogDao.saveOrUpdate(catelog);
 	}
 
 	@Override
 	public Catalog getById(Long catelogId) {
-		return catalogService.getById(catelogId);
+		return catalogDao.getById(catelogId);
 	}
 
 	@Override
-	public Catalog[] getList() {
-		return catalogService.getList();
+	public List<Catalog> getList() {
+		return catalogDao.getList();
 	}
 
 	@Override
-	public String  deleteById(Long catelogId) {
-	return 	catalogService.deleteById(catelogId);		
+	public String deleteById(Long catelogId) {
+		return catalogDao.deleteById(catelogId);
 	}
-
 }

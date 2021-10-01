@@ -9,7 +9,7 @@ public interface CategoryService {
 
 	public Category getById(Long categoryId);
 
-	public Category[] getList();
+	public List<Category> getList();
 
 	public String deleteById(Long categoryId);
 }

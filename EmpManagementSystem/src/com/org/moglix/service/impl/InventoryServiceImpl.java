@@ -8,7 +8,20 @@ import com.org.moglix.domain.Inventory;
 import com.org.moglix.service.InventoryService;
 
 public class InventoryServiceImpl implements InventoryService {
-InventoryDao inventoryDao=new InventoryDaoImpl();
+	InventoryDao inventoryDao = InventoryDaoImpl.getInstance();
+	private static InventoryService invetoryService;
+
+	private InventoryServiceImpl() {
+	}
+
+	public static InventoryService getInstance() {
+		if (invetoryService == null) {
+			invetoryService = new InventoryServiceImpl();
+			return invetoryService;
+		} else
+			return invetoryService;
+	}
+
 	@Override
 	public String saveOrUpdate(Inventory inventory) {
 		return inventoryDao.saveOrUpdate(inventory);
@@ -20,13 +33,13 @@ InventoryDao inventoryDao=new InventoryDaoImpl();
 	}
 
 	@Override
-	public Inventory[] getList() {
+	public List<Inventory> getList() {
 		return inventoryDao.getList();
 	}
 
 	@Override
 	public String deleteById(Long inventoryId) {
-	return	inventoryDao.deleteById(inventoryId);
+		return inventoryDao.deleteById(inventoryId);
 	}
 
 }

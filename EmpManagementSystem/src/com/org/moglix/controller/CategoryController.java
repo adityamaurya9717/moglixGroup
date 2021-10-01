@@ -7,7 +7,7 @@ import com.org.moglix.service.CategoryService;
 import com.org.moglix.service.impl.CategoryServiceImpl;
 
 public class CategoryController {
-	CategoryService categoryService = new CategoryServiceImpl();
+	CategoryService categoryService = CategoryServiceImpl.getInstance();
 
 	public String saveOrUpdate(Category category) {
 		return this.categoryService.saveOrUpdate(category);
@@ -17,7 +17,7 @@ public class CategoryController {
 		return this.categoryService.getById(categoryId);
 	}
 
-	public Category[] list() {
+	public List<Category> list() {
 		return this.categoryService.getList();
 	}
 

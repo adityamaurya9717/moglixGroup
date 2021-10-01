@@ -8,8 +8,16 @@ import com.org.moglix.domain.Category;
 import com.org.moglix.service.CategoryService;
 
 public class CategoryServiceImpl implements CategoryService {
-CategoryDao categoryDao=new CategoryDaoImpl();
-	@Override
+CategoryDao categoryDao=CategoryDaoImpl.getInstance();
+private static CategoryService categoryService;
+private CategoryServiceImpl() {}
+public static CategoryService getInstance(){
+	if(categoryService==null) {
+		categoryService=new CategoryServiceImpl();
+		return categoryService;
+	}else return categoryService;
+}
+@Override
 	public String saveOrUpdate(Category category) {
 		return categoryDao.saveOrUpdate(category);
 	}
@@ -20,7 +28,7 @@ CategoryDao categoryDao=new CategoryDaoImpl();
 	}
 
 	@Override
-	public Category[] getList() {
+	public List<Category> getList() {
 		return categoryDao.getList();
 	}
 

@@ -9,7 +9,7 @@ public interface CartService {
 
 	public Cart getById(Long cartId);
 
-	public Cart[] getList();
+	public List<Cart> getList();
 
 	public String deleteById(Long cartId);
 }

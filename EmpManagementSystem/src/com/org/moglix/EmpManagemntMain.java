@@ -1,12 +1,33 @@
 package com.org.moglix;
 
-import com.org.moglix.controller.CatelogController;
-import com.org.moglix.controller.EmployeeController;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 import com.org.moglix.domain.Catalog;
-import com.org.moglix.domain.Employee;
 
 public class EmpManagemntMain {
 	public static void main(String[] args) {
+		
+//		LinkedHashMap<String,String> map=new LinkedHashMap<String, String>();
+		TreeMap<String,String> map=new TreeMap<String, String>();	
+		map.put(null, "john vick");
+		map.put("zmp002", "john vick");
+		map.put("emp003", "john vick");
+		map.put("emp004", "john vick");
+		System.out.println(map);
+//		HashSet<Catalog> catalogHaset=new HashSet<Catalog>(); 
+		TreeSet<Catalog> catalogHaset=new TreeSet<Catalog>();
+		Catalog catalogSet=new Catalog(3L,"Mobile","All aboutMobile",2L);
+		Catalog catalogSet1=new Catalog(4L,"Mobile-1","All aboutMobile-1",3L);
+		Catalog catalogSet2=new Catalog(5L,"Mobile-2","All aboutMobile-2",4L);
+		catalogHaset.add(catalogSet);
+		//catalogHaset.add(catalogSet1);
+		//catalogHaset.add(catalogSet2);
+		//catalogHaset.remove(catalogSet2);
+		//HashSet<Catalog> cata=(HashSet<Catalog>) catalogHaset.clone();
+		//System.out.println(catalogHaset);
 //		EmployeeController employeeController =new EmployeeController();
 //
 //       Employee emp=new Employee();
@@ -55,32 +76,55 @@ public class EmpManagemntMain {
 //	}
 
 		/// catalog service start here
-		CatelogController catagoryController = new CatelogController();
-		Catalog catalog = new Catalog();
-		catalog.setProductId(1L);
-		catalog.setProductName("Book");
-		catalog.setProductDescription("All about the books");
-		catalog.setCategoryId(1L);
-		String persistedCatalog = catagoryController.saveOrUpdate(catalog);
-		System.out.println(persistedCatalog);
-		System.out.println(catagoryController.getById(2L));
+//		CatelogController catagoryController = new CatelogController();
+//		Catalog catalog = new Catalog();
+//		catalog.setProductId(2L);
+//		catalog.setProductName("Book");
+//		catalog.setProductDescription("All about the books");
+//		catalog.setCategoryId(1L);
+//		String persistedCatalog = catagoryController.saveOrUpdate(catalog);
+//		System.out.println(persistedCatalog);
+//		
+//
+//		Catalog catalog1 = new Catalog();
+//		catalog1.setProductId(1L);
+//		catalog1.setProductName("Hindi Book");
+//		catalog1.setProductDescription("All about the Hindid books");
+//		catalog1.setCategoryId(1L);
+//		String updateCatelog = catagoryController.saveOrUpdate(catalog1);
+//		System.out.println(updateCatelog);
+//		 //get catalog by id
+//		 System.out.println(catagoryController.getById(2L));
+//		 
+//		 //getting all Catalog 
+//		 System.out.println("getting all catalog");
+//		 for (Catalog cat:catagoryController.list()) {
+//			 if(cat!=null) {
+//				 System.out.println(cat);
+//			 }
+//		 }
 
-		Catalog catalog1 = new Catalog();
-		catalog1.setProductId(2L);
-		catalog1.setProductName("Hindi Book");
-		catalog1.setProductDescription("All about the Hindid books");
-		catalog1.setCategoryId(1L);
-		String updateCatelog = catagoryController.saveOrUpdate(catalog1);
-		System.out.println(updateCatelog);
-       //get catalog by id
-		System.out.println(catagoryController.getById(2L));
+		// deleting
+//		 System.out.println("Deleted catalog by productId");
+//		String deletingCatalog=catagoryController.delete(1L);
+//		System.out.println(deletingCatalog);
+//		
+//
+//		System.out.println("get Catalog by produt Id");
+//		System.out.println(catagoryController.getById(2L));
 		
-		//deleting 
-		String deletingCatalog=catagoryController.delete(1L);
-		System.out.println(deletingCatalog);
-		
-		System.out.println(catagoryController.getById(1L));
-
+//		
+//		String persistedCatalog2 = catagoryController.saveOrUpdate(catalog);
+//		System.out.println(persistedCatalog2);
+	
+		//System.out.println(employe.calculateSalary(1800.00, 11.00, 12.00, 15.00));
+		//Employee manager = new Manager();
+		//System.out.println(manager.calculateSalary(1800.00, 11.00, 12.00, 15.00));
+		//manager.calculateSalary(basicSalary, ta, da, hra)
+		//Employee m = new Manager("EMP001", "John", "vick", 10.00, "USA", "Dummy", 2000.00);
+		//System.out.println(m .calculateSalary(1800.00, 11.00, 12.00, 15.00));
+		//System.out.println(m);
+		//System.out.println(m.calculateSalary(1800.00, 11.00, 12.00, 15.00));
 	}
 
 }

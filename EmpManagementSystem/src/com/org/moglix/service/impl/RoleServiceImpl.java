@@ -8,7 +8,20 @@ import com.org.moglix.domain.Role;
 import com.org.moglix.service.RoleService;
 
 public class RoleServiceImpl implements RoleService {
-RoleDao roleDao=new RoleDaoImpl();
+	RoleDao roleDao = RoleDaoImpl.getInstance();
+	private static RoleService roleService;
+
+	private RoleServiceImpl() {
+	}
+
+	public static RoleService getInstance() {
+		if (roleService == null) {
+			roleService = new RoleServiceImpl();
+			return roleService;
+		} else
+			return roleService;
+	}
+
 	@Override
 	public String saveOrUpdate(Role Role) {
 		return roleDao.saveOrUpdate(Role);
@@ -20,7 +33,7 @@ RoleDao roleDao=new RoleDaoImpl();
 	}
 
 	@Override
-	public Role[] getList() {
+	public List<Role> getList() {
 		return roleDao.getList();
 	}
 

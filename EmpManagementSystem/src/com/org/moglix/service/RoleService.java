@@ -9,7 +9,7 @@ public interface RoleService {
 
 	public Role getById(Long roleId);
 
-	public Role[] getList();
+	public List<Role> getList();
 
 	public String deleteById(Long roleId);
 }
